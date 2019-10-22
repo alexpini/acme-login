@@ -11,6 +11,7 @@ class _Login extends React.Component{
       password: ''
     };
     this.onChange = this.onChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   onChange(ev) {
@@ -25,7 +26,7 @@ class _Login extends React.Component{
 
   render(){
     const { username, password } = this.state;
-    const { onChange } = this;
+    const { onChange, login } = this;
     const { attemptLogin } = this.props;
     return (
       <div>

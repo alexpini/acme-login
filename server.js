@@ -7,23 +7,24 @@ const db = require('./db');
 app.use(require('express-session')({
   secret: process.env.SECRET
 }));
+
 const port = process.env.PORT || 3000;
 db.syncAndSeed()
  .then(() => app.listen(port, () => console.log(`listening on port ${port}`)));
 
 
-const users = {
-  moe: {
-    id: 1,
-    name: 'moe',
-    favoriteWord: 'foo'
-  },
-  lucy: {
-    id: 2,
-    name: 'lucy',
-    favoriteWord: 'bar'
-  }
-};
+// const users = {
+//   moe: {
+//     id: 1,
+//     name: 'moe',
+//     favoriteWord: 'foo'
+//   },
+//   lucy: {
+//     id: 2,
+//     name: 'lucy',
+//     favoriteWord: 'bar'
+//   }
+// };
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 

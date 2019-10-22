@@ -15,11 +15,13 @@ const User = conn.define('user', {
       isEmail: true
     }
   },
-  password: STRING
+  password: {
+    type: STRING
+  }
 });
 
 const syncAndSeed = async () => {
-  conn.sync({ force: true });
+  await conn.sync({ force: true });
 
   const emails = [
     { email: 'moe@moe.com', password: 'moe' },
