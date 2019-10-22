@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize')
 const { STRING, UUID, UUIDV4 } = Sequelize;
+
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/my_db')
 
-const User = conn.define('users', {
+const User = conn.define('user', {
   id: {
     type: UUID,
     defaultValue: UUIDV4,
@@ -17,5 +18,27 @@ const User = conn.define('users', {
   password: STRING
 });
 
+const syncAndSeed = async () => {
+  conn.sync({ force: true });
 
-module.exports = User
+  const emails = [
+    { email: 'moe@moe.com', password: 'moe' },
+    { email: 'foo@foo.com', password: 'foo' },
+    { email: 'lucy@lucy.com', password: 'lucy' },
+  ];
+
+  const [moe, foo, lucy] = await Promise.all(emails.map(email => User.create(email)));
+
+  return {
+    moe,
+    foo,
+    lucy
+  };
+}
+
+module.exports = {
+  syncAndSeed,
+  models: {
+    User
+  }
+}
